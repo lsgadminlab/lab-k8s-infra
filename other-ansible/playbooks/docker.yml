@@ -1,0 +1,11 @@
+- name: install docker on storage server
+  hosts: storage
+  become: true
+  roles:
+    - docker
+
+- name: install docker on monitoring server
+  hosts: monitoring
+  become: true
+  roles:
+    - docker

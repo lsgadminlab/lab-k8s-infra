@@ -1,0 +1,5 @@
+- name: set up grafana + prometheus
+  hosts: monitoring
+  become: true
+  roles:
+    - monitoring

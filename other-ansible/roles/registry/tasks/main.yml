@@ -1,0 +1,9 @@
+- name: Deploy registry
+  community.docker.docker_container:
+    name: registry
+    image: registry:2
+    volumes:
+      - /var/lib/registry:/var/lib/registry
+    ports:
+      - "5000:5000"
+    restart_policy: always

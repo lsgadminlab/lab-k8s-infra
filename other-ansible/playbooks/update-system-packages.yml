@@ -1,0 +1,5 @@
+- name: update system packages
+  hosts: all
+  become: true
+  roles:
+    - apt-update

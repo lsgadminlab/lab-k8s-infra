@@ -1,0 +1,31 @@
+- name: add docker GPG key
+  get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/trusted.gpg.d/docker.asc
+
+- name: update docker sources.list
+  copy:
+    src: templates/docker.list
+    dest: /etc/apt/sources.list.d/docker.list
+
+- name: install docker
+  apt:
+    pkg:
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+      - python3-docker
+    state: latest
+    update_cache: true
+
+- name: make sure a service unit is running
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: add ansible user to docker group
+  user:
+    name: ansible
+    groups: docker
+    append: yes

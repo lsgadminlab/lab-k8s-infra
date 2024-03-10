@@ -1,0 +1,38 @@
+- name: Create docker network
+  community.docker.docker_network:
+    name: monitoring
+
+- name: create garfana dir
+  file:
+    path: /var/lib/grafana
+    state: directory
+    mode: 0777
+    recurse: yes
+
+- name: Deploy grafana
+  community.docker.docker_container:
+    name: grafana
+    image: "grafana/grafana:10.2.4"
+    network_mode: monitoring
+    volumes:
+      - "/var/lib/grafana:/var/lib/grafana"
+    restart_policy: always
+
+- name: Creates directory
+  file:
+    path: /etc/prometheus
+    state: directory
+- name: copy prometheus config
+  copy:
+    src: templates/prometheus.yml
+    dest: /etc/prometheus/prometheus.yml
+
+- name: deploy prometheus
+  community.docker.docker_container:
+    name: prometheus
+    image: prom/prometheus:v2.50.1
+    network_mode: monitoring
+    volumes:
+      - /etc/prometheus:/etc/prometheus
+      - /var/lib/prometheus:/var/lib/prometheus
+    restart_policy: always

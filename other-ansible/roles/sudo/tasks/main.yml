@@ -1,0 +1,25 @@
+- name: Ensure sudo package is installed
+  package:
+    name: sudo
+    state: present
+
+- name: Ensure sudoers file has correct permissions
+  file:
+    path: /etc/sudoers
+    owner: root
+    group: root
+    mode: 0440
+
+- name: Add user debian to sudo group
+  user:
+    name: debian
+    groups: sudo
+    append: yes
+
+- name: Add debian to sudoers file
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    line: "debian ALL=(ALL) NOPASSWD: ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+    state: present
