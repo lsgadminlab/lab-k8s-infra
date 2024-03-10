@@ -1,0 +1,23 @@
+frontend frontend-http
+    bind    :::80 v6only
+    bind    :80
+    default_backend backend-http
+
+backend backend-http
+	balance 				roundrobin
+	mode                    tcp
+	{% for host in groups['k8s-worker'] %}
+	server {{ host }} {{ host }}:443 send-proxy check
+	{% endfor %}
+
+frontend frontend-https
+    bind    :::443 v6only
+    bind    :443
+    default_backend backend-https
+
+backend backend-https
+	balance 				roundrobin
+	mode                    tcp
+	{% for host in groups['k8s-worker'] %}
+	server {{ host }} {{ host }}:443 send-proxy check
+	{% endfor %}

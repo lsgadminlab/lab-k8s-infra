@@ -1,0 +1,17 @@
+- name: make sure haproxy is installed
+  apt:
+    pkg:
+      - haproxy
+    state: latest
+    update_cache: true
+
+- name: update docker sources.list
+  copy:
+    src: templates/config
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: make sure a service unit is running
+  systemd:
+    name: haproxy
+    state: started
+    enabled: true
