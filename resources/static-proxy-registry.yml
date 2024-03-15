@@ -43,6 +43,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: default-registry-auth-middleware@kubernetescrd
     cert-manager.io/cluster-issuer: letsencrypt-prod
   name: static-proxy-registry
 spec:
