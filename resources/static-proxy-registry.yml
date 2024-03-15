@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-proxy-registry
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-proxy-registry
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxSurge: 1,  maxUnavailable: 0 }
+  template:
+    metadata:
+      labels:
+        app: static-proxy-registry
+    spec:
+      imagePullSecrets:
+        - name: nexus
+      securityContext:
+        runAsUser: 600
+      containers:
+        - name: static-proxy-registry
+          imagePullPolicy: IfNotPresent
+          image: registry.musicanalyzer.timkausemann.de/static-proxy-registry
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: static-proxy-registry
+spec:
+  selector:
+    app: static-proxy-registry
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: static-proxy-registry
+spec:
+  tls:
+    - hosts:
+        - registry.lab.lcarilla.de
+      secretName: static-proxy-registry-cert
+  rules:
+    - host: "registry.lab.lcarilla.de"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: static-proxy-registry
+                port:
+                  number: 80

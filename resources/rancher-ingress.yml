@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: rancher-ingress
   namespace: cattle-system
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
     - host: "rancher.lab.lcarilla.de"

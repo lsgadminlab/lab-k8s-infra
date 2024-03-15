@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-proxy-fritzbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-proxy-fritzbox
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxSurge: 1,  maxUnavailable: 0 }
+  template:
+    metadata:
+      labels:
+        app: static-proxy-fritzbox
+    spec:
+      imagePullSecrets:
+        - name: musicanalyzer-registry
+      containers:
+        - name: static-proxy-fritzbox
+          imagePullPolicy: IfNotPresent
+          image: registry.musicanalyzer.timkausemann.de/static-proxy-fritzbox
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: static-proxy-fritzbox
+spec:
+  selector:
+    app: static-proxy-fritzbox
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: static-proxy-fritzbox
+spec:
+  tls:
+    - hosts:
+        - fritzbox.lab.lcarilla.de
+      secretName: static-proxy-fritzbox-cert
+  rules:
+    - host: "fritzbox.lab.lcarilla.de"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: static-proxy-fritzbox
+                port:
+                  number: 80
