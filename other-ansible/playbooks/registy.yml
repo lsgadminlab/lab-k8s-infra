@@ -1,0 +1,5 @@
+- name: install docker registry on storage server
+  hosts: storage
+  become: true
+  roles:
+    - registry

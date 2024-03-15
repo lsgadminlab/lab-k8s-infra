@@ -7,3 +7,9 @@
     ports:
       - "5000:5000"
     restart_policy: always
+- name: create cronjob
+  ansible.builtin.cron:
+    name: "clean registry"
+    minute: "0"
+    hour: "3"
+    job: "/usr/bin/docker exec registry /bin/registry garbage-collect /etc/docker/registry/config.yml --delete-untagged=true > ~/clean.out"
