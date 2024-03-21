@@ -4,3 +4,4 @@
   roles:
     - mysql
     - postgresql
+    - mongodb
