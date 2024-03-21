@@ -1,0 +1,13 @@
+- name: Deploy postgresql
+  docker_container:
+    name: postgresql
+    image: postgres:16.2-alpine
+    env:
+      - POSTGRES_USER: cluster
+      - POSTGRES_PASSWORD: 9rt#Lfcd88yau&U258coewMV7&NxBQa@UWWhkiXFWr8gbEZ^F^@wb3d7ht@rtam!^cEV#u3rNZ@@WE6%5TZJBY6bTpf8NCVKHZ#X&PA4#JN!By9Be5%Btuoo7PM6$9eW
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+    restart_policy: on-failure
+

@@ -1,0 +1,13 @@
+- name: Deploy mysql
+  docker_container:
+    name: mysql
+    image: mysql
+    ports:
+      - 3306:3306
+    env:
+      - MYSQL_USER: cluster
+      - MYSQL_ROOT_PASSWORD: bi36CKEt#B5s5M*CXRShvidmc^rY!G$^L5556HQQBqWzsPSQuEtJDK!4^%Yk6f^ckNw22n%agaity2QWubNqUg%$2n9Cb7#Tx29Kq#&FF6B68UVXMq&y%M!Fk2dj7jUC
+      - MYSQL_PASSWORD: bi36CKEt#B5s5M*CXRShvidmc^rY!G$^L5556HQQBqWzsPSQuEtJDK!4^%Yk6f^ckNw22n%agaity2QWubNqUg%$2n9Cb7#Tx29Kq#&FF6B68UVXMq&y%M!Fk2dj7jUC
+    volumes:
+      - database:/var/lib/mysql
+    restart_policy: on-failure

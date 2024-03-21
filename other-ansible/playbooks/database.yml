@@ -1,0 +1,6 @@
+- name: set up databases
+  hosts: storage
+  become: true
+  roles:
+    - mysql
+    - postgresql
