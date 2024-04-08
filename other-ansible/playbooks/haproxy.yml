@@ -1,5 +1,5 @@
 - name: set up haproxy
-  hosts: haproxy
+  hosts: network
   become: true
   roles:
     - haproxy

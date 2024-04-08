@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-dashbaord
+  namespace: kube-system
+spec:
+  selector:
+    app.kubernetes.io/name: traefik
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: static-proxy-registry
+spec:
+  tls:
+    - hosts:
+        - traefik.lab.lcarilla.de
+      secretName: static-proxy-traefik-dashboard-cert
+  rules:
+    - host: "traefik.lab.lcarilla.de"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: traefik-dashbaord
+                port:
+                  number: 80

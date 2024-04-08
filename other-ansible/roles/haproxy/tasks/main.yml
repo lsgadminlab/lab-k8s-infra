@@ -6,7 +6,7 @@
     update_cache: true
 
 - name: update docker sources.list
-  copy:
+  template:
     src: templates/config
     dest: /etc/haproxy/haproxy.cfg
 
