@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-config
+  namespace: default
+data:
+  DB_HOST: "sto-01.fritz.box"
+  MYSQL_PORT: "3306"
+  MYSQL_PASSWORD: "bi36CKEt#B5s5M*CXRShvidmc^rY!G$^L5556HQQBqWzsPSQuEtJDK!4^%Yk6f^ckNw22n%agaity2QWubNqUg%$2n9Cb7#Tx29Kq#&FF6B68UVXMq&y%M!Fk2dj7jUC"
+  MYSQL_USER: "cluster"
+  POSTGRES_USER: "cluster"
+  POSTGRES_PORT: "5432"
+  POSTGRES_PASSWORD: "9rt#Lfcd88yau&U258coewMV7&NxBQa@UWWhkiXFWr8gbEZ^F^@wb3d7ht@rtam!^cEV#u3rNZ@@WE6%5TZJBY6bTpf8NCVKHZ#X&PA4#JN!By9Be5%Btuoo7PM6$9eW"
+  MONGO_USER: "cluster"
+  MONGO_PORT: "27017"
+  MONGO_PASSWORD: "zFcsT-PQd..e=:,;,GOI-Mp|C=#.;R[Ol)wIf{.DqB:.{BY7-[Zv?;bP{l8zu|Krxab5ezvq;YLe4b[J\"s4)TX0z[aUIHomgWX\\C4id*X,9*AgWAoOA+7[iTOeZSj9jv.!s2UVQC[,2\"8JC3X*x7?)!tOO.kCeKg1F#,e0wzaDu\\,ay?JlJbHF8.c0mziLdRcc(wi7KYh\"|JuLg.TRtI4p@Ce83hXx=,ZC86FkJ'syuX@qAhpWFh}@f@dA6JYSQzcd[rCc8Aq)f'VdQjp0Sqa[1rbjIf|8e\".WAXG{W.S{}-D8q?:-JkuLJ7MX[zl,OilbxlR\"c4'1LRabO{Qc:t}:qso0FX4|BFFVLV'cFhfddAE#;q9r}=f0;,HY=z/wPzsmT/k1k4Icx4dBus\\Kpp].UE=[I1,Q[[.5;JIj.;3|XDst!d.Edgh6O7twX-Mv@m0=JOpcztH{-k'R}mzRVaKJ3Us'.QS#(DtR!9d9@T37Mhg[#l-wl(f#uzToD.kEWh"
+
